@@ -1,3 +1,8 @@
+'use client';
+
+export default function Home() {
+  ...
+}
 // app/page.js
 
 export default function Home() {
