@@ -44,6 +44,7 @@ export default function Home() {
           color: white;
           padding: 20px;
           text-align: center;
+          position: relative;
         }
 
         .glow {
@@ -96,7 +97,6 @@ export default function Home() {
           border-radius: 8px;
           text-decoration: none;
           font-size: 1rem;
-          cursor: pointer;
           border: 1px solid #ffffff30;
           transition: 0.3s;
         }
