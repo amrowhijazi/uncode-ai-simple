@@ -10,9 +10,10 @@ export async function POST(req) {
     const userMessage = body?.message || "";
 
     if (!userMessage.trim()) {
-      return new Response(JSON.stringify({ error: "Empty message" }), {
-        status: 400,
-      });
+      return new Response(
+        JSON.stringify({ error: "Empty message" }),
+        { status: 400 }
+      );
     }
 
     const completion = await client.chat.completions.create({
@@ -20,23 +21,24 @@ export async function POST(req) {
       messages: [
         {
           role: "system",
-          content: `You are **Odin** from the UNCODE universe…`
+          content: `You are **Odin** from the UNCODE universe...`,
         },
-        {
-          role: "user",
-          content: userMessage,
-        },
+        { role: "user", content: userMessage },
       ],
     });
 
-    return Response.json({
-      reply: completion.choices[0].message.content,
-    });
+    const answer =
+      completion.choices[0]?.message?.content || "I have no answer.";
 
-  } catch (error) {
-    console.error("API ERROR:", error);
-    return new Response(JSON.stringify({ error: "Server error" }), {
-      status: 500,
+    return new Response(JSON.stringify({ reply: answer }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
     });
+  } catch (err) {
+    console.error("Odin API error:", err);
+    return new Response(
+      JSON.stringify({ error: "Something went wrong talking to Odin." }),
+      { status: 500 }
+    );
   }
 }
