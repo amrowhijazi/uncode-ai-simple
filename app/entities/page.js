@@ -29,13 +29,6 @@ const realms = [
 
 const characters = [
   {
-    id: 'bellona',
-    name: 'Bellona',
-    role: 'Prime Decoder',
-    realm: 'Pantheon',
-    note: 'The one who sees the pattern before the pattern knows it exists.',
-  },
-  {
     id: 'odin',
     name: 'Odin',
     role: 'Watcher of Loops',
