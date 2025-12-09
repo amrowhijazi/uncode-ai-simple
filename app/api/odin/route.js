@@ -1,8 +1,6 @@
-// app/api/odin/route.js
+export const dynamic = "force-dynamic"; // ⬅ أهم خطوة
 
-export const dynamic = "force-dynamic";
-
-import { processWithOdin } from "../../engine/odin";
+import { processWithOdin } from "../../../engine/odin";
 
 export async function POST(req) {
   try {
@@ -21,7 +19,7 @@ export async function POST(req) {
     return new Response(
       JSON.stringify({
         answer,
-        meta: analysis,
+        meta: analysis
       }),
       {
         status: 200,
