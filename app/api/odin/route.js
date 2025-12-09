@@ -28,6 +28,7 @@ export async function POST(req) {
     );
   } catch (err) {
     console.error("Odin API error:", err);
+
     return new Response(
       JSON.stringify({
         error: "Something went wrong talking to Odin.",
