@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 
-import { processWithOdin } from "../../../engine/odin";
+import { processWithOdin } from "../../engine/odin";
 
 export async function POST(req) {
   try {
