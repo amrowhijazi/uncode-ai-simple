@@ -1,46 +1,32 @@
-export const dynamic = "force-dynamic";
+import OpenAI from "openai";
 
-import { processWithOdin } from "../../engine/odin";
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
 
 export async function POST(req) {
   try {
-    const body = await req.json();
-    const userMessage = body?.message || "";
+    const { question } = await req.json();
 
-    if (!userMessage.trim()) {
-      return new Response(
-        JSON.stringify({ error: "Empty message" }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-    }
-
-    const { answer, analysis } = await processWithOdin(userMessage);
-
-    return new Response(
-      JSON.stringify({ answer, meta: analysis }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-  } catch (err) {
-    // المهم السطر ده علشان نشوف الخطأ الحقيقي في لوج Vercel
-    console.error(
-      "Odin API error:",
-      err?.response?.data || err?.message || err
-    );
+    const response = await client.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "system", content: "You are Odin, the Constructive Engine of UNCODE AI." },
+        { role: "user", content: question }
+      ]
+    });
 
     return new Response(
       JSON.stringify({
-        error: "Odin failed",
+        answer: response.choices[0].message.content
       }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      }
+      { status: 200 }
+    );
+
+  } catch (err) {
+    return new Response(
+      JSON.stringify({ error: err.message }),
+      { status: 500 }
     );
   }
 }
