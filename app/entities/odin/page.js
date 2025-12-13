@@ -1,4 +1,12 @@
 "use client";
+export const dynamic = "force-dynamic";
+export const revalidate = false;
+
+import OdinClient from "./OdinClient";
+
+export default function Page() {
+  return <OdinClient />;
+}
 
 import { useState } from "react";
 import Link from "next/link";
